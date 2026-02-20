@@ -14,8 +14,10 @@
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
-      <h1 id="headerTitle">GKI Kernel Versions</h1>
-      <p id="headerSubtitle">Android Generic Kernel Image &mdash; version tracking dashboard</p>
+      <div class="header-left">
+        <h1 id="headerTitle">GKI Kernel Versions</h1>
+        <p id="headerSubtitle">Android Generic Kernel Image &mdash; version tracking dashboard</p>
+      </div>
       <div class="header-actions">
         <button class="theme-toggle" id="themeToggle" title="Toggle theme">
           <span id="themeIcon">&#9789;</span>
@@ -41,8 +43,8 @@
 
   <!-- Time Converter -->
   <section class="tools-section">
-    <div class="tools-inner">
-      <h2 class="tools-title" id="tcTitle">Time Converter</h2>
+    <details class="tools-inner" id="tcDetails">
+      <summary class="tools-summary" id="tcTitle">Time Converter</summary>
       <div class="tc-row">
         <div class="tc-inputs">
           <div class="tc-field">
@@ -59,7 +61,7 @@
           <button class="modal-copy tc-copy" id="tcCopy">Copy</button>
         </div>
       </div>
-    </div>
+    </details>
   </section>
 
   <!-- Main -->
@@ -304,7 +306,7 @@
         </tr>`;
       });
       return `<table>
-        <thead><tr><th>${t.date}</th><th>${t.kernelVersion}</th></tr></thead>
+        <thead class="table-half-head"><tr><th>${t.date}</th><th>${t.kernelVersion}</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>`;
     }
@@ -335,8 +337,14 @@
           </div>
         </div>
         <div class="table-dual-wrapper">
-          <div class="table-half">${buildHalf(leftCol)}</div>
-          <div class="table-half">${buildHalf(rightCol)}</div>
+          <div class="table-dual-header">
+            <span>${t.date}</span>
+            <span>${t.kernelVersion}</span>
+          </div>
+          <div class="table-dual-body">
+            <div class="table-half">${buildHalf(leftCol)}</div>
+            <div class="table-half">${buildHalf(rightCol)}</div>
+          </div>
         </div>
       </div>`;
   }
@@ -455,6 +463,11 @@
       });
       inner.innerHTML = html;
       section.style.display = '';
+      // Auto-dismiss after 5 seconds
+      setTimeout(function () {
+        section.classList.add('announce-hide');
+        setTimeout(function () { section.style.display = 'none'; }, 400);
+      }, 5000);
     } catch (e) {
       // silently ignore
     }
