@@ -52,6 +52,9 @@ __pycache__/
 *.py[cod]
 *.pyo
 
+# Web build artifacts (data copied at deploy time)
+web/data/
+
 # Node.js (if any tooling)
 node_modules/
 
